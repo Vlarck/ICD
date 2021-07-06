@@ -86,7 +86,7 @@ struct matrix flatten(struct matrix a_matrix){
 };
 
 struct matrix slice(struct matrix a_matrix, int rs, int re, int cs, int ce){
-a_matrix.offset=rs*a_matrix.n_cols;
+a_matrix.offset=rs*a_matrix.n_cols+cs;
 a_matrix.n_rows=re-rs+1;
 a_matrix.n_cols=ce-cs+1;
 
