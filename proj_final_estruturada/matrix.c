@@ -46,17 +46,6 @@ void print_matrix(struct matrix a_matrix){
 
     }
 }
-void print_matrix_(struct matrix a_matrix){
-    int j=0;
-    for(int i = 0; i < a_matrix.n_rows; i++){
-        j=a_matrix.offset+i*a_matrix.stride_rows;
-        for(int i=0; i < a_matrix.n_cols;i++){
-            printf("%d ", a_matrix.data[j]);
-            j=j+a_matrix.stride_cols;}
-    printf("\n");
-    }
-}
-
 
 struct matrix i_matrix(int n){
     int i = n;
@@ -226,4 +215,29 @@ struct matrix reshape(struct matrix a_matrix, int new_n_rows, int new_n_cols){
     return a_matrix;
 };
 
+struct matrix matmul(struct matrix a_matrix, struct matrix b_matrix){
+    int a=0;
+    int b;
+    int x;
+    int size = a_matrix.n_rows * a_matrix.n_cols;
+    int new_data[size];
+
+    for(int i=0; i<a_matrix.n_rows; i++){
+        b=b_matrix.offset+i*b_matrix.stride_rows;
+        x=a_matrix.offset+i*a_matrix.stride_rows;
+        for(int i=0; i<a_matrix.n_cols; i++){
+            for(int i = 0; i < a_matrix.n_rows; i++){
+                new_data[a]=new_data[a]+a_matrix.data[x+a_matrix.stride_cols*i]*b_matrix.data[b+b_matrix.stride_rows];
+                }
+        a++;
+        b=b_matrix.offset+i*b_matrix.stride_cols;
+        }
+    }
+    a_matrix.data=new_data;
+    a_matrix.offset=0;
+
+
+    return a_matrix;
+
+};
 
